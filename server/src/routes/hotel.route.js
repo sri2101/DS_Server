@@ -229,7 +229,7 @@ router.post(
 //     updateHotel
 // );
 
-router.patch(
+router.post(
     "/update/:id",
     verifyUser,
     verifyAdmin,
@@ -242,6 +242,7 @@ router.patch(
     ]),
     updateHotel
 );
+
 
 
 // Delete hotel
