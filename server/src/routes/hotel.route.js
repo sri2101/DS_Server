@@ -215,8 +215,22 @@ router.post(
 );
 
 // Update hotel (Edit)
-router.put(
-    "/:id",
+// router.put(
+//     "/:id",
+//     verifyUser,
+//     verifyAdmin,
+//     upload.fields([
+//         { name: "image1", maxCount: 1 },
+//         { name: "image2", maxCount: 1 },
+//         { name: "image3", maxCount: 1 },
+//         { name: "image4", maxCount: 1 },
+//         { name: "image5", maxCount: 1 },
+//     ]),
+//     updateHotel
+// );
+
+router.patch(
+    "/update/:id",
     verifyUser,
     verifyAdmin,
     upload.fields([
@@ -228,6 +242,7 @@ router.put(
     ]),
     updateHotel
 );
+
 
 // Delete hotel
 router.delete("/:id", verifyUser, verifyAdmin, deleteHotel);
