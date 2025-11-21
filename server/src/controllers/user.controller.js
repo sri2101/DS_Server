@@ -302,6 +302,7 @@ const signup = AsyncHandler(async (req, res) => {
 
 // ✅ LOGIN
 const login = AsyncHandler(async (req, res) => {
+  console.log("🔐 LOGIN → REQ BODY => ", req.body);
   const { id, password } = req.body || {};
 
   if (!id || !password) {
@@ -379,64 +380,3 @@ const profile = AsyncHandler(async (req, res) => {
 });
 
 export { profile };
-
-
-
-
-
-
-// import AsyncHandler from "../utils/AsyncHandler.js";
-// import ErrorHandler from "../utils/ErrorHandler.js";
-// import ResponseHandler from "../utils/ResponseHandler.js";
-// import User from "../models/user.model.js";
-
-// const signup = AsyncHandler(async (req, res) => {
-//   let { fullname, email, phone, password, type } = req.body;
-
-//   if (!fullname || !email || !phone || !password) {
-//     throw new ErrorHandler(400, "All fields are required!");
-//   }
-
-//   // ✅ Normalize and sanitize input
-//   fullname = fullname.trim();
-//   email = email.trim().toLowerCase();
-//   phone = phone.trim();
-//   password = password.trim();
-//   type = type?.toUpperCase() === "ADMIN" ? "ADMIN" : "USER"; // ✅ Force valid value
-
-//   if (fullname === "") throw new ErrorHandler(400, "Fullname shouldn't be empty!");
-
-//   if (
-//     !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
-//       email
-//     )
-//   ) throw new ErrorHandler(400, "Invalid email! :(");
-
-//   if (phone === "") throw new ErrorHandler(400, "Incorrect mobile number! :(");
-
-//   if (!(password.length > 7))
-//     throw new ErrorHandler(400, "Password must be 8 or more characters long!");
-
-//   const isUserPresent = await User.findOne({
-//     $or: [{ email }, { phone }],
-//   });
-
-//   if (isUserPresent) throw new ErrorHandler(400, "Account already exists! :(");
-
-//   const createdUser = await User.create({
-//     fullname,
-//     email,
-//     phone,
-//     password,
-//     type, // ✅ Properly sanitized
-//   });
-
-//   const isUserCreated = await User.findById(createdUser._id);
-
-//   return res
-//     .status(200)
-//     .json(new ResponseHandler(200, isUserCreated, "Account created successfully! :)"));
-// });
-
-// export { signup };
-
