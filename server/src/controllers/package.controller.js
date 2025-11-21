@@ -150,14 +150,38 @@ export const createPackage = AsyncHandler(async (req, res) => {
   if (exists) throw new ErrorHandler(400, "Package with this slug already exists!");
 
   // Handle uploaded images (image1..image5)
-  const images = [];
-  for (let i = 1; i <= 5; i++) {
-    const key = `image${i}`;
-    if (req.files && req.files[key] && req.files[key][0] && req.files[key][0].path) {
-      const url = await uploadOnCloudinary(req.files[key][0].path);
-      if (url) images.push(url);
-    }
+  // const images = [];
+  // for (let i = 1; i <= 5; i++) {
+  //   const key = `image${i}`;
+  //   if (req.files && req.files[key] && req.files[key][0] && req.files[key][0].path) {
+  //     const url = await uploadOnCloudinary(req.files[key][0].path);
+  //     if (url) images.push(url);
+  //   }
+  // }
+
+    // Handle uploaded images (image1..image5)
+const images = [];
+
+for (let i = 1; i <= 5; i++) {
+  const key = `image${i}`;
+
+  if (req.files && req.files[key] && req.files[key][0]) {
+    const fileBuffer = req.files[key][0].buffer;
+    const filename = req.files[key][0].originalname;
+
+    const uploaded = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        { resource_type: "image", public_id: filename },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      ).end(fileBuffer);
+    });
+
+    if (uploaded?.secure_url) images.push(uploaded.secure_url);
   }
+}
 
   // Normalize some fields that might arrive as JSON strings
   // helper: robustly parse JSON-like inputs which may be:
