@@ -1160,26 +1160,26 @@ export const updateHotel = AsyncHandler(async (req, res) => {
   const updates = { ...req.body };
 
   // Handle image uploads
-  // for (const field of imageFields) {
-  //   if (req.files && req.files[field]) {
-  //     const result = await uploadOnCloudinary(req.files[field][0].path);
-  //     updates[field] = result;
-  //   }
-  // }
-
-  // Handle image uploads safely — prevent Cloudinary crash
-for (const field of imageFields) {
-  const file = req.files?.[field]?.[0];
-
-  // Only upload when a REAL file exists
-  if (file && file.path) {
-    const uploaded = await uploadOnCloudinary(file.path);
-
-    if (uploaded?.secure_url) {
-      updates[field] = uploaded.secure_url;
+  for (const field of imageFields) {
+    if (req.files && req.files[field]) {
+      const result = await uploadOnCloudinary(req.files[field][0].path);
+      updates[field] = result;
     }
   }
-}
+
+  // Handle image uploads safely — prevent Cloudinary crash
+// for (const field of imageFields) {
+//   const file = req.files?.[field]?.[0];
+
+//   // Only upload when a REAL file exists
+//   if (file && file.path) {
+//     const uploaded = await uploadOnCloudinary(file.path);
+
+//     if (uploaded?.secure_url) {
+//       updates[field] = uploaded.secure_url;
+//     }
+//   }
+// }
 
 // Prevent replacing image with empty string / null
 imageFields.forEach(field => {
