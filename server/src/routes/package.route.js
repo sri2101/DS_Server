@@ -32,7 +32,7 @@ router.post(
   createPackage
 );
 
-router.put(
+router.patch(
   "/:slug",
   verifyUser,
   verifyAdmin,
