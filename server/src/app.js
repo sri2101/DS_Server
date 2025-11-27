@@ -34,9 +34,13 @@ app.use(express.urlencoded({
 import userRouter from "./routes/user.routes.js"
 import hotelRouter from "./routes/hotel.route.js"
 import packageRouter from "./routes/package.route.js"
+import contactRouter from "./routes/contact.route.js"
+import tripEnquiryRouter from "./routes/tripEnquiry.route.js";
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/hotel", hotelRouter)
 app.use("/api/v1/package", packageRouter)
+app.use("/api/v1/contact", contactRouter)
+app.use("/api/v1/trip", tripEnquiryRouter);
 
 export default app

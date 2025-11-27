@@ -12,10 +12,10 @@ connectDB()
         console.log(error)
     })
 
-    // app.listen(process.env.PORT || 4000, function(){
-    //     console.log(`Server is running on port ${process.env.PORT || 4000}`)
-    //     console.log(`Server URL : http://localhost:${process.env.PORT || 4000}`)
-    // })
+    app.listen(process.env.PORT || 4000, function(){
+        console.log(`Server is running on port ${process.env.PORT || 4000}`)
+        console.log(`Server URL : http://localhost:${process.env.PORT || 4000}`)
+    })
 })
 .catch(function(error){
     console.error(error?.message)
